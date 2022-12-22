@@ -1,12 +1,10 @@
 from flask import request, Blueprint
+from services import create_user
 
 users = []
 user_blueprint = Blueprint("user_blueprint", __name__)
 
 @user_blueprint.route("/signup", methods=["POST"])
-def signup():
+async def signup():
     user = request.get_json()
-    if(user.get("username") == None or user.get("avatar") == None ):
-        return "Informações inválidas", 400
-    users.append(user)
-    return "Usuário criado com sucesso", 201
+    return await create_user(user)
