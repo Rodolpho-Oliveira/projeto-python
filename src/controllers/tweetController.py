@@ -1,11 +1,8 @@
-from flask import request, jsonify, Blueprint
+from flask import request, jsonify
 from .userController import users
 
 posts = []
 
-tweet_blueprint = Blueprint("tweet_blueprint", __name__)
-
-@tweet_blueprint.route("/posts", methods=["GET", "POST"])
 def get_post_posts():
     if request.method == "GET":
         for post in posts:

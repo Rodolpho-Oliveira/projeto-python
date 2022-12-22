@@ -1,2 +1,2 @@
-from .tweetController import tweet_blueprint
-from .userController import user_blueprint
+from .tweetController import get_post_posts
+from .userController import signup
