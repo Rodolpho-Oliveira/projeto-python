@@ -1,9 +1,8 @@
-from flask import Flask
-import routes
+import falcon.asgi
+from .controllers.tweetController import *
+from .controllers.userController import *
 
-app = Flask(__name__)
+app = falcon.asgi.App()
 
-app.register_blueprint(routes.tweet_blueprint)
-app.register_blueprint(routes.user_blueprint)
-
-app.run(port=5000, debug=True, host="localhost")
+app.add_route('/tweet', TweetController())
+app.add_route('/signup', UserController())

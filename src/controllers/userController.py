@@ -1,10 +1,8 @@
-from flask import request, Blueprint
-from services import create_user
+from ..services.userService import create_user
 
 users = []
-user_blueprint = Blueprint("user_blueprint", __name__)
 
-@user_blueprint.route("/signup", methods=["POST"])
-async def signup():
-    user = request.get_json()
-    return await create_user(user)
+class UserController:
+    async def on_post(self, req, resp):
+        user = await req.media
+        return await create_user(user)

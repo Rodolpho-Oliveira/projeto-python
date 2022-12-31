@@ -1,13 +1,19 @@
-from flask import request, jsonify
-from services import check_avatar, create_post
+from ..services.tweetService import TweetService
+import json
+import falcon
 
-async def get_post_posts():
-    if request.method == "GET":
-        posts = await check_avatar()
-        return jsonify(posts), 200
-    elif request.method == "POST":
-        post = request.get_json()
-        error = await create_post(post)
+class TweetController:
+    async def on_get(self, req, resp):
+        posts = await TweetService.check_avatar()
+        print(posts)
+        resp.text = json.dumps(posts)
+        resp.status = falcon.HTTP_200
+
+    async def on_post(self, req, resp):
+        post = req.stream
+        print(post)
+        error = TweetService.create_post(post)
         if error:
             return error
-        return "Post criado", 201
+        resp.text = json.dumps("Post criado")
+        resp.status = falcon.HTTP_201
