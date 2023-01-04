@@ -5,14 +5,12 @@ import falcon
 class TweetController:
     async def on_get(self, req, resp):
         posts = await TweetService.check_avatar()
-        print(posts)
         resp.text = json.dumps(posts)
         resp.status = falcon.HTTP_200
 
     async def on_post(self, req, resp):
-        post = req.stream
-        print(post)
-        error = TweetService.create_post(post)
+        post = await req.media
+        error = await TweetService.create_post(post)
         if error:
             return error
         resp.text = json.dumps("Post criado")

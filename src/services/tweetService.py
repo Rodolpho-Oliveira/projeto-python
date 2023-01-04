@@ -7,7 +7,6 @@ class TweetService:
             for user in users:
                 if(post["username"] == user["username"]):
                     post["avatar"] = user["avatar"]
-        print(posts)
         return posts
 
     async def create_post(post):
