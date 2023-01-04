@@ -6,6 +6,9 @@ users = []
 class UserController:
     async def on_post(self, req, resp):
         user = await req.media
-        await create_user(user)
-        resp.text = json.dumps("Usuário criado")
-        resp.status = falcon.HTTP_201
+        status = await create_user(user)
+        resp.status = status
+        if(status == 201):
+            resp.text = json.dumps("Usuário criado")
+        else:
+            resp.text = json.dumps("Informações inválidas")
